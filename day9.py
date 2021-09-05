@@ -63,7 +63,6 @@ def part1(a):
     ans(len(a.strip()), should_exit=False)
 
 
-# print(seen)
 part1(a)
 seen[a] = get_value(a)
 ans(seen[a])
