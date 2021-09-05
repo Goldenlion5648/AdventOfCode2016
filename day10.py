@@ -1,8 +1,5 @@
-from itertools import *
-from collections import *
-from math import * #product is prod
-import re
 from AoCLibrary import *
+
 with open("input10.txt") as f:
     # a = list(map(int,f.read().strip().split("\n")))
     a = f.read().strip().split("\n")

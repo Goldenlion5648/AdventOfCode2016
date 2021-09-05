@@ -1,8 +1,5 @@
-from itertools import *
-from collections import *
-from math import *
-import re
 from AoCLibrary import *
+
 with open("input3.txt") as f:
     # a = list(map(int,f.read().strip().split("\n")))
     a = f.read().strip().split("\n")

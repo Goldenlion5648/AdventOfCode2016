@@ -1,8 +1,5 @@
-from itertools import *
-from collections import *
-from math import *
-import re
 from AoCLibrary import *
+
 from copy import deepcopy
 with open("input11.txt") as f:
     # a = list(map(int,f.read().strip().split("\n")))

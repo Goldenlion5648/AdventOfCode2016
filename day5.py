@@ -1,8 +1,5 @@
-from itertools import *
-from collections import *
-from math import *
-import re
 from AoCLibrary import *
+
 
 import hashlib
 #USE PYTHON, NOT PYPY
