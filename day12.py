@@ -6,6 +6,7 @@ with open("input12.txt") as f:
 
 #part 1 done in 15:13
 #part 2 done in 16:02
+
 def run_computer(instructs, part2=False):
     pos = 0
     regs = defaultdict(int)
@@ -14,6 +15,8 @@ def run_computer(instructs, part2=False):
     while pos < len(instructs):
         line = a[pos]
         cur = line.split(" ")
+        if any(type(k) == int for k in regs):
+            assert False, "keys should not be numbers!"
 
         ip = cur[0]
         if ip == "cpy":
@@ -32,7 +35,7 @@ def run_computer(instructs, part2=False):
             y = cur[2]
             if (
                 x.isnumeric() and int(x) != 0
-                or not x.isnumeric() and (regs[x]) != 0
+                or not x.isnumeric() and regs[x] != 0
             ):
                 pos += int(y)
                 continue

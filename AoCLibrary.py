@@ -15,10 +15,14 @@ try:
 except ModuleNotFoundError:
     using_pypy = True
 def nums(a : str):
-    '''Returns a list with the numbers from a string
-    
-    '''
-    return list(map(int, re.findall(r"\d+", a)))
+    '''Returns a list with the numbers from a string'''
+    return list(map(int, re.findall(r"-?\d+", a.strip())))
+
+def nums2(a : str):
+    '''Returns a list of lists with the numbers
+     from each line of a string'''
+    return [list(map(int, re.findall(r"-?\d+", x)))
+     for x in a.strip().split("\n")]
 
 def p(*args):
     '''Faster way to type print'''
