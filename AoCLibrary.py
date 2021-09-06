@@ -14,16 +14,30 @@ try:
     import pyperclip
 except ModuleNotFoundError:
     using_pypy = True
+
+
 def nums(a : str):
-    '''Returns a list with the numbers from a string'''
+    '''Returns a list with all the numbers from a string'''
     return list(map(int, re.findall(r"-?\d+", a.strip())))
 
-def nums2(a : str):
-    '''Returns a list of lists with the numbers
-     from each line of a string'''
+def num_ranges(a):
+    '''Returns a list with the numbers from a string'''
+    if type(a) == str:
+        a = a.strip().split('\n')
+    return [list(map(int, re.findall(r"\d+", x)))
+            for x in a]
+def num_list(a):
+    '''Returns a list of lists with only the numbers
+     from each line of a string or a list'''
+    if type(a) == str:
+        a = a.strip().split('\n')
     return [list(map(int, re.findall(r"-?\d+", x)))
-     for x in a.strip().split("\n")]
+    for x in a]
 
+#aliases
+num_lists = num_list
+nums_lists = num_list
+nums_list = num_list
 def p(*args):
     '''Faster way to type print'''
     print(*args)
