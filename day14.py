@@ -1,5 +1,4 @@
 from AoCLibrary import *
-import hashlib
 
 a = "abc"
 a = "jlmsuwbz"
@@ -11,7 +10,7 @@ def save_future(start=0, num_futures=1, repeat=1):
     for j in range(start, start + num_futures):
         cur = a + str(j)
         for _ in range(repeat):
-            cur = hashlib.md5((cur).encode('utf-8')).hexdigest()
+            cur = get_hash(cur)
         hash_storage[j] = cur
         match5 = re.findall(r"(.)\1\1\1\1", cur)
         for m5 in match5:

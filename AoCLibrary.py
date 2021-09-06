@@ -7,6 +7,7 @@ from math import *
 from collections import defaultdict as dd
 from collections import *
 from copy import deepcopy
+import hashlib
 
 using_pypy = False
 try:
@@ -27,6 +28,8 @@ def pprint(a):
     for y in a:
         print("".join(list(map(str, y))))
 
+def get_hash(s):
+    return hashlib.md5((s).encode('utf-8')).hexdigest()
 
 def show_board(board):
     '''Prints a defaultdict that uses (y, x) values for keys
