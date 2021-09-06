@@ -19,9 +19,9 @@ def run_computer(instructs, part2=False):
         if ip == "cpy":
             x = cur[1]
             y = cur[2]
-            if x.isnumeric():
+            try:
                 regs[y] = int(x)
-            else:
+            except:
                 regs[y] = int(regs[x])
         elif ip == "inc":
             regs[cur[1]] += 1
@@ -30,21 +30,17 @@ def run_computer(instructs, part2=False):
         elif ip == "jnz":
             x = cur[1]
             y = cur[2]
-            if x.isnumeric():
-                if int(x) != 0:
-                    pos += int(y)
-                    continue
-            else:
-                if (regs[x]) != 0:
-                    pos += int(y)
-                    continue
+            if (
+                x.isnumeric() and int(x) != 0
+                or not x.isnumeric() and (regs[x]) != 0
+            ):
+                pos += int(y)
+                continue
         else:
             assert False
         pos += 1
 
     ans(regs['a'], should_exit=False)
 
-if __name__ == '__main__':
-    run_computer(a)
-    run_computer(a, part2=True)
-318077
+run_computer(a)
+run_computer(a, part2=True)
