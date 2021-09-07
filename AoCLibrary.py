@@ -69,7 +69,7 @@ def show_board(board):
         print()
 
 
-def bfs(startX, startY, goalY, goalX, board, max_steps=float("+inf")):
+def bfs(startY, startX, goalY, goalX, board, max_steps=float("+inf")):
     '''Returns steps from start to goal, and seen (dict of (posY, posX) : steps away)
     
     given starting x and y, and goalX and goalY, and 

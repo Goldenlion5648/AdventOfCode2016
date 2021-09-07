@@ -44,28 +44,16 @@ def part2():
         for _ in range(n):
             if facing == 0:
                 y -= 1
-                cur = (y, x)
-                if cur in seen:
-                    ans(abs(x) + abs(y))
-                seen.add(cur)
             elif facing == 1:
                 x += 1
-                cur = (y, x)
-                if cur in seen:
-                    ans(abs(x) + abs(y))
-                seen.add(cur)
             elif facing == 2:
                 y += 1
-                cur = (y, x)
-                if cur in seen:
-                    ans(abs(x) + abs(y))
-                seen.add(cur)
             elif facing == 3:
                 x -= 1
-                cur = (y, x)
-                if cur in seen:
-                    ans(abs(x) + abs(y))
-                seen.add(cur)
+            cur = (y, x)
+            if cur in seen:
+                ans(abs(x) + abs(y))
+            seen.add(cur)
 
 part1()
 part2()
