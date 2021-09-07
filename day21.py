@@ -1,23 +1,23 @@
 from AoCLibrary import *
 
 with open("input21.txt") as f:
-    # a = list(map(int,f.read().strip().split("\n")))
     a = f.read().strip().split("\n")
-    # a = f.read().strip()
 
 
-letters = list("abcde")
-letters = list("abcdefgh")
 def scramble(letters):
     if type(letters) == str:
         letters = list(letters)
     for line in a:
         cur = line.split()
         nums_ = nums(line)
+        if len(nums_) >= 1:
+            x = nums_[0]
+        if len(nums_) >= 2:
+            y = nums_[1]
+        
         if cur[0] == 'swap':
             if nums_:
-                letters[nums_[1]], letters[nums_[0]
-                                    ] = letters[nums_[0]], letters[nums_[1]]
+                letters[y], letters[x] = letters[x], letters[y]
             else:
                 letters = list(("".join(letters)).replace(
                     cur[2], '_').replace(cur[-1], cur[2]).replace('_', cur[-1]))
@@ -29,28 +29,28 @@ def scramble(letters):
                 index += 1
             letters = deque(list(letters))
             if cur[1] == 'right':
-                letters.rotate(nums_[0])
+                letters.rotate(x)
             elif cur[1] == 'left':
-                letters.rotate(-nums_[0])
+                letters.rotate(-x)
             else:
                 letters.rotate(index)
             
             letters = list("".join(list(letters)))
         elif cur[0] == 'reverse':
-            temp = letters[nums_[0]:nums_[1] + 1]
-            letters[nums_[0]:nums_[1] + 1] = temp[::-1] 
+            temp = letters[x:y + 1]
+            letters[x:y + 1] = temp[::-1] 
         elif cur[0] == "move":
-            temp = letters[nums_[0]]
-            letters.pop(nums_[0])
-            letters.insert(nums_[1], temp)
-        # print(letters)
+            temp = letters[x]
+            letters.pop(x)
+            letters.insert(y, temp)
 
-    return ("".join(letters))
+    return "".join(letters)
 
 ans(scramble("abcdefgh"), should_exit=False)
 
 key = "fbgdceah"
-for perm in permutations(list("fbgdceah"), 8):
+#brute force instead of reversing instructions
+for perm in permutations(list(key), 8):
     cur = scramble(list(perm))
     if cur == key:
         ans("".join(perm))
