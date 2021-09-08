@@ -25,11 +25,10 @@ def part1(count):
 
 def part2(count):
     circle = dd(lambda: [-1, -1])
-
     for i in range(count):
         circle[i][0] = (i + 1) % count
         circle[i][1] = (i - 1) % count
-    #only the person getting removed matters, 
+    # only the person getting removed matters, 
     # not who is taking from them
     pop_pos = count // 2
     while len(circle) > 1:

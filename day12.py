@@ -1,7 +1,6 @@
 from AoCLibrary import *
 
 with open("input12.txt") as f:
-    # a = list(map(int,f.read().strip().split("\n")))
     a = f.read().strip().split("\n")
 
 #part 1 done in 15:13

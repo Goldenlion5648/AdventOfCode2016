@@ -10,7 +10,7 @@ with open("input3.txt") as f:
 def part1(a):
     count = 0
     for line in a:
-        cur = list(map(int, line.strip().split()))
+        cur = nums(line)
         cur.sort()
         a, b, c = cur
         count += a + b > c
@@ -22,15 +22,14 @@ def part2(a):
     mid= []
     last= []
     for line in a:
-        cur = list(map(int, line.strip().split()))
-        a, b, c = cur
+        a, b, c = nums(line)
         first.append(a)
         mid.append(b)
         last.append(c)
-    all_ = deque(first + mid + last)
+    combined = deque(first + mid + last)
     count = 0 
-    while len(all_) > 0:
-        cur = [all_.popleft() for i in range(3)]
+    while len(combined) > 0:
+        cur = [combined.popleft() for _ in range(3)]
         cur.sort()
         a, b, c = cur
         count += a + b > c

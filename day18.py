@@ -3,7 +3,8 @@ from AoCLibrary import *
 with open("input18.txt") as f:
     board = [list(f.read().strip())]
 
-#part 1 done in 16:30 (wrong answer due to sample number of rows instead of real)
+#part 1 done in 16:30 (wrong answer due to sample 
+# number of rows instead of real)
 #part 2 done in 16:56
 '''
 Trap if:
@@ -27,7 +28,6 @@ def is_trap(left, center, right):
     return trap
 
 def find_traps(board, rows):  # sourcery skip: simplify-numeric-comparison
-    # board = deepcopy(og)
     for y in range(1, rows):
         board.append(list('.'*len(board[0])))
         for x in range(len(board[0])):
@@ -36,7 +36,6 @@ def find_traps(board, rows):  # sourcery skip: simplify-numeric-comparison
             right = (x + 1 >= len(board[0]) or board[y-1][x+1] != trap_mark)
             if is_trap(left, center, right):
                 board[y][x] = trap_mark
-    # pprint(board)
     ans(sum(j.count(".") for j in board), should_exit=False)
     
 find_traps(board[:], 40)

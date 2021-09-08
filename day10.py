@@ -8,8 +8,8 @@ with open("input10.txt") as f:
 #part 2 done in 15:14, would be 12th on leaderboard :O :D
 
 a.sort(reverse=True)
-bots = defaultdict(list)
-outputs = defaultdict(list)
+bots = dd(list)
+outputs = dd(list)
 k1, k2 = 5, 2
 k1, k2 = 61, 17
 fringe = deque(a)
@@ -17,21 +17,19 @@ while len(fringe):
     line = fringe.popleft()
     cur = line.split(" ")
     if line.startswith("value"):
-        x = int(cur[1])
-        y = int(cur[-1])
+        x, y = nums(line)
         bots[y].append(x)
-    else:
-        num = int(cur[1])
-        bots[num].sort()
-        if k1 in bots[num] and k2 in bots[num]:
-            ans(num, should_exit=False)
-        try:
-            lo, hi = bots[num]
-        except:
+    elif line.startswith("bot"):
+        bot_num, x, z = nums(line)
+        bots[bot_num].sort()
+        if k1 in bots[bot_num] and k2 in bots[bot_num]:
+            ans(bot_num, should_exit=False)
+        if len(bots[bot_num]) >= 2:
+            lo, hi = bots[bot_num]
+        else:
             fringe.append(line)
             continue
-        x = int(cur[6])
-        z = int(cur[-1])
+        
         if cur[5] == 'output':
             outputs[x].append(lo)
         else:

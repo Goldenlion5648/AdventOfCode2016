@@ -1,8 +1,6 @@
 from AoCLibrary import *
 
 with open("input13.txt") as f:
-    # a = list(map(int,f.read().strip().split("\n")))
-    # a = f.read().strip().split("\n")
     num = int(f.read().strip())
 # part 1 done in about 16 minutes
 # part 2 done in about 20 minutes (off by 1 error, then doubt)

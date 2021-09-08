@@ -19,7 +19,7 @@ def save_future(start=0, num_futures=1, repeat=1):
 
 def find_index(part2=False):
     keys_found = 0
-    for i in range(300000000):
+    for i in range(10**12):
         if i % 1000 == 0:
             print(i)
         if part2:

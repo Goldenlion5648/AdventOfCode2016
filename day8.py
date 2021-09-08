@@ -22,32 +22,23 @@ tall = 6
 
 for line in a:
     if line.startswith("rect"):
-        _, b = line.split(" ")
-        l, w = map(int, b.split("x"))
-        print(l, w)
+        l, w = nums(line)
         for i in range(l):
             for j in range(w):
                 board[(j, i)] = True
+
     elif "row" in line:
-        cur = line.split(" ")
-        y = int(cur[2][2:])
-        amount = int(cur[-1])
-        print("amount", amount)
-        temp = board[(0, y)]
+        y, amount = nums(line)
         temp_board = board.copy()
         for i in range(wide):
             board[(y, (i+amount) % wide)] = temp_board[(y, i)]
     elif "column" in line:
-        cur = line.split(" ")
-        x = int(cur[2][2:])
-        amount = int(cur[-1])
-        print("amount", amount)
-        temp = board[(0, x)]
+        x, amount = nums(line)
         temp_board = board.copy()
         for i in range(tall):
             board[((i+amount) % tall, x)] = temp_board[(i, x)]
         # board[((i - temp) % tall, x)] = temp
-print(board)
+# print(board)
+ans(sum(board.values()), should_exit=False)
 show_board(board)
-ans(sum(board.values()))
 

@@ -8,7 +8,8 @@ with open("input20.txt") as f:
 #part 1 done in 29:53 (was not taking the max of hi and hi2 :( ))
 #part 2 done in 31:56
 
-blacklist = num_ranges(a)
+blacklist = nums2(a, False)
+blacklist.append([4294967294, 4294967295])
 blacklist.sort()
 pos = 0
 while pos < len(blacklist) - 1:

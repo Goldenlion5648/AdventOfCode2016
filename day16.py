@@ -7,18 +7,18 @@ def gen_data(a):
     return a + "0" + b
 
 def checksum(a):
-    res = [a[i:i+2] for i in range(0, len(a), 2)]
-    res = (["1" if j[0] == j[1] else "0" for j in res])
+    pairs = [a[i:i+2] for i in range(0, len(a), 2)]
+    res = (["1" if j[0] == j[1] else "0" for j in pairs])
     res = "".join(res)
     if len(res) % 2 == 0:
         return checksum(res)
     return res
 
-def work(a, len_):
-    while len(a) < len_:
+def work(a, length):
+    while len(a) < length:
         a = gen_data(a)
     # print(a)
-    a = a[:len_]
+    a = a[:length]
     return checksum(a)
 assert checksum("110010110100") == "100"
 assert work("10000", 20) == "01100"

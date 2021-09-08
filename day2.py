@@ -15,11 +15,13 @@ def part1():
     cur = (1,1)
     answer = [0]
     for line in a:
-        for x in line:
-            # print(x)
-            cur = (cur[0] + directions[x][0], cur[1] + directions[x][1])
+        for letter in line:
+            # print(letter)
+            y, x = directions[letter]
+            cur = (cur[0] + y, cur[1] + x)
             cur = (max(cur[0], 0), max(cur[1], 0))
-            cur = (min(cur[0], 2), min(cur[1], 2))
+            cur = (min(cur[0], len(board)-1), min(cur[1], len(board[0])-1))
+            # print(cur)
         pos = board[cur[0]][cur[1]]
         if answer[-1] != pos: 
             answer.append(pos)
@@ -27,26 +29,28 @@ def part1():
     ans(answer[1:], should_exit=False)
 
 def part2():
-    board = [["0", "0", "1", "0", "0"],
-            ["0", "2", "3", "4", "0"], 
+    BLK = "0"
+    board = [[BLK, BLK, "1", BLK, BLK],
+            [BLK, "2", "3", "4", BLK], 
             ["5", "6", "7", "8", "9"],
-            ["0", "A", "B", "C", "0"], 
-            ["0", "0", "D", "0", "0"]]
+            [BLK, "A", "B", "C", BLK], 
+            [BLK, BLK, "D", BLK, BLK]]
     cur = (2,0)
     answer = ["0"]
     for line in a:
         for x in line:
             # print(x)
-            f = cur[0] + directions[x][0]
-            s = cur[1] + directions[x][1]
+            new_y = cur[0] + directions[x][0]
+            new_x = cur[1] + directions[x][1]
 
-            if 0 <= f < 5 and 0 <= s < 5 and board[f][s] != "0":
-                cur = (f, s)
+            if 0 <= new_y < len(board) and \
+            0 <= new_x < len(board[0]) and \
+                board[new_y][new_x] != BLK:
+                cur = (new_y, new_x)
         pos = board[cur[0]][cur[1]]
         if answer[-1] != pos:
             answer.append(pos)
-        # print(answer)
-    # ans("".join(list(map(str, answer))))
+
     ans(answer[1:])
 
 part1()

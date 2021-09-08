@@ -16,28 +16,39 @@ except ModuleNotFoundError:
     using_pypy = True
 
 
-def nums(a : str):
+def nums(a : str, negs=True):
     '''Returns a list with all the numbers from a string'''
-    return list(map(int, re.findall(r"-?\d+", a.strip())))
+    pattern = r"-?\d+" if negs else r"\d+"
+    return [int(n) for n in re.findall(pattern, a.strip())]
 
-def num_ranges(a):
-    '''Returns a list with the numbers from a string'''
-    if type(a) == str:
-        a = a.strip().split('\n')
-    return [list(map(int, re.findall(r"\d+", x)))
-            for x in a]
-def num_list(a):
+# def num_ranges(a):
+#     '''Returns a list with the numbers from a string'''
+#     if type(a) == str:
+#         a = a.strip().split('\n')
+#     return [[int(num) for num in re.findall(r"\d+", x)]
+#             for x in a]
+
+
+def num_list(a, negs=True):
     '''Returns a list of lists with only the numbers
      from each line of a string or a list'''
+    pattern = r"-?\d+" if negs else r"\d+"
     if type(a) == str:
         a = a.strip().split('\n')
-    return [list(map(int, re.findall(r"-?\d+", x)))
-    for x in a]
+    return [[int(num) for num in re.findall(pattern, x)] for x in a]
+
+def prod(x):
+    res = 1
+    for i in x:
+        res *= i
+    return res
 
 #aliases
 num_lists = num_list
 nums_lists = num_list
 nums_list = num_list
+nums2 = num_list
+
 def p(*args):
     '''Faster way to type print'''
     print(*args)
@@ -49,7 +60,20 @@ def pprint(a):
 def get_hash(s):
     return hashlib.md5((s).encode('utf-8')).hexdigest()
 
-def show_board(board):
+def read_board(a, start_regex_raw, goal_regex_raw, wall_regex=r"#"):
+    board = {}
+    goals = set()
+    for y in range(len(a)):
+        for x in range(len(a[0])):
+            board[(y, x)] = bool(re.match(wall_regex, a[y][x]))
+            if re.match(start_regex_raw, a[y][x]):
+                startX = x
+                startY = y
+            if re.match(goal_regex_raw, a[y][x]):
+                goals.add((y, x))
+    return board, startY, startX, goals
+
+def show_board(board, actual_symbol=False):
     '''Prints a defaultdict that uses (y, x) values for keys
     
     True  means # (wall) 
@@ -58,11 +82,14 @@ def show_board(board):
 
     (isWall)
     '''
-    w = max(board, key=lambda x : x[1])[1] + 1
-    h = max(board, key=lambda x : x[0])[0] + 1
-    for j in range(h):
-        for i in range(w):
-            if (board[(j, i)]):
+    y_dim = max(board, key=lambda x : x[0])[0] + 1
+    x_dim = max(board, key=lambda x : x[1])[1] + 1
+    for y in range(y_dim):
+        for x in range(x_dim):
+            if actual_symbol:
+                print(board[(y, x)] if (y, x) in board else "_", end='')
+
+            if (board[(y, x)]):
                 print("#", end='')
             else:
                 print(".", end='')
@@ -78,8 +105,8 @@ def bfs(startY, startX, goalY, goalX, board, max_steps=float("+inf")):
     fringe = deque([(startY, startX, 0)])
     seen = dd(lambda: float("+inf"))
     seen[(startY, startX)] = 0
-    yDim = max(j[0] for j in board.keys())
-    xDim = max(j[1] for j in board.keys())
+    yDim = max(j[0] for j in board.keys()) + 1
+    xDim = max(j[1] for j in board.keys()) + 1
     def add_spot(newY, newX, steps):
         pot = (newY, newX)
         if 0 <= newY < yDim and 0 <= newX < xDim and not board[pot] and steps + 1 < seen[pot]:
@@ -114,6 +141,7 @@ def ans(x, sep="", should_exit=True):
         exit()
 
 
+# sourcery skip: de-morgan
 directions = {
     "N" : (-1, 0),
     "S" : (1, 0),
@@ -123,4 +151,14 @@ directions = {
     "D": (1, 0),
     "L": (0, -1),
     "R": (0, 1),
-    }
+}
+
+adj = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+adj8 = [(i, j) for i in range(-1, 2) 
+                for j in range(-1, 2) 
+                if not (i == 0 and j == 0)]
+#aliases
+ajd = adj
+cardinals = adj
+ajd8 = adj8
+all_touching = adj8

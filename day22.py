@@ -103,7 +103,7 @@ while fringe:
 
     temp_goalX = goalX
     temp_goalY = goalY
-    for dy, dx in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
+    for dy, dx in adj:
         goalY = temp_goalY
         goalX = temp_goalX
         pot = (y + dy, x + dx)
